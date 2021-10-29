@@ -6,6 +6,7 @@ class Person(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
+    numeric_identifier = db.Column(db.Integer)
     zone_id = db.Column(db.Integer, db.ForeignKey("zones.id"), nullable=False)
 
     zone = db.relationship("Site", back_populates="people")
