@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
+import Checkin_Checkout from './components/Checkin_Checkout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
@@ -33,6 +34,12 @@ function App() {
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+        </Route>
+        <Route path='/checkin' exact={true}>
+          <Checkin_Checkout />
+        </Route>
+        <Route path='/checkout' exact={true}>
+          <Checkin_Checkout />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>

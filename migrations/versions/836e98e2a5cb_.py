@@ -1,8 +1,8 @@
-"""Initial migration.
+"""empty message
 
-Revision ID: 1dee03e49c9b
-Revises: 15634a41e24a
-Create Date: 2021-10-28 21:59:53.385406
+Revision ID: 836e98e2a5cb
+Revises: 
+Create Date: 2021-10-28 22:58:15.081771
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1dee03e49c9b'
-down_revision = '15634a41e24a'
+revision = '836e98e2a5cb'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -22,6 +22,16 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=True),
     sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('users',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('username', sa.String(length=40), nullable=False),
+    sa.Column('email', sa.String(length=255), nullable=False),
+    sa.Column('hashed_password', sa.String(length=255), nullable=False),
+    sa.Column('user_type', sa.Integer(), nullable=True),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email'),
+    sa.UniqueConstraint('username')
     )
     op.create_table('zones',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -34,6 +44,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('first_name', sa.String(length=255), nullable=True),
     sa.Column('last_name', sa.String(length=255), nullable=True),
+    sa.Column('numeric_identifier', sa.Integer(), nullable=True),
     sa.Column('zone_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['zone_id'], ['zones.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -53,5 +64,6 @@ def downgrade():
     op.drop_table('logs')
     op.drop_table('people')
     op.drop_table('zones')
+    op.drop_table('users')
     op.drop_table('sites')
     # ### end Alembic commands ###
