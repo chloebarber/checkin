@@ -8,6 +8,7 @@ class Zone(db.Model):
     site_id = db.Column(db.Integer, db.ForeignKey("sites.id"), nullable=False)
 
     site = db.relationship("Site", back_populates="zones")
+    people = db.relationship("Person", back_populates="zone")
 
     def to_dict(self):
         return {

@@ -9,7 +9,8 @@ class Person(db.Model):
     numeric_identifier = db.Column(db.Integer)
     zone_id = db.Column(db.Integer, db.ForeignKey("zones.id"), nullable=False)
 
-    zone = db.relationship("Site", back_populates="people")
+    zone = db.relationship("Zone", back_populates="people")
+    logs = db.relationship("Log", back_populates="person")
 
     def to_dict(self):
         return {
